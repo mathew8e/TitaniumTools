@@ -77,16 +77,18 @@ def deleteCloneImages(dictOfCloneImages):
             for delImg in v:
                 remove(delImg)
                 print(f"removing {delImg} \n")
+        return 1
         
     else:
         print("Nothing to remove")
+        return "Nothing to remove"
         
 def duplicateDelete(PATH):
     path = PATH.replace("\\", "//") + "/"
     imgs = loadImages(path)
     npimgs = convImgToNpArrays(imgs)
     cloneListArray = cloneFind(npimgs, imgs)
-    deleteCloneImages(cloneListArray)
+    return deleteCloneImages(cloneListArray)
         
                 
 

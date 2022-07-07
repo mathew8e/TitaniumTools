@@ -1,7 +1,9 @@
+import string
 import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from rename import bulkRename
 from sort import sort, sortWideToTall
 from cloneDel import duplicateDelete
 
@@ -42,10 +44,18 @@ class window(QWidget):
         self.button2.move(200, 110)
         self.button2.clicked.connect(lambda:self.buttonAction(self.button2))
         
-        self.button2 = QPushButton('Delete duplicate images', self)
-        self.button2.move(20, 150)
-        self.button2.clicked.connect(lambda:self.buttonAction(self.button3))
-        
+        self.button3 = QPushButton('Delete duplicate images', self)
+        self.button3.move(20, 150)
+        self.button3.clicked.connect(lambda:self.buttonAction(self.button3))
+
+        self.button4 = QPushButton('Rename images', self)
+        self.button4.move(200, 150)
+        self.button4.clicked.connect(lambda:self.buttonAction(self.button4))
+
+        self.textbox2 = QLineEdit(self)
+        self.textbox2.move(200, 200)
+        self.textbox2.resize(150, 30)
+
         self.show()
 
    
@@ -61,6 +71,9 @@ class window(QWidget):
         elif b.text() == "Delete duplicate images":
             exception = duplicateDelete(path)
             exceptionMessages(exception)
+        elif b.text() == "Rename images":
+            exception = bulkRename(path, self.textbox2.text())
+            exceptionMessages(exception)
             
         
 
@@ -69,8 +82,8 @@ def exceptionMessages(exception):
     msg.setWindowTitle("ImgCloneFinderInfo")
     if exception == 1:
         msg.setText("Finished.")
-    elif exception == 2:
-        msg.setText("Remove folders named lands cape portrait or square.")
+    elif isinstance(exception, str):
+        msg.setText(exception)
     else: 
         msg.setText("Something went wrong.")
     

@@ -1,4 +1,7 @@
 from PIL import Image
+import shutil
+from os import listdir
+import os
 
 def makeImgObjArray(PATH):
     ArrayWithImgObjects = []
@@ -17,3 +20,9 @@ def makeImgObjArray(PATH):
             img.close()
     
     return ArrayWithImgObjects
+
+def imgMove(PATH, name, foldername):
+    shutil.move("{0}/{1}".format(PATH, name), "{0}/{1}".format(PATH, foldername))
+
+def imgRename(PATH, name, rename):
+    os.rename("{0}/{1}".format(PATH, name), "{0}/{1}".format(PATH, rename))
